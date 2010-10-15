@@ -1,0 +1,16 @@
+Name: Tuba
+Version: 0.0.1
+Synopsis: Preposition Prediction for Tuba
+License: BSD3
+Author: Aleksandar Dimitrov <aleks.dimitrov@gmail.com>
+Maintainer: Aleksandar Dimitrov <aleks.dimitrov@gmail.com>
+Build-Depends: base
+Cabal-Version: >=0.12
+build-type: Simple
+
+executable baseline
+    hs-source-dirs: src
+    main-is: Sax.hs
+    ghc-options: -Wall -O2
+    ghc-prof-options: -prof -auto-all
+    build-depends: base >= 4, bytestring, hexpat, containers

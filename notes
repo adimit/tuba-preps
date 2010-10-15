@@ -1,0 +1,39 @@
+TODO
+
+1. write a majority baseline analyser for tuba
+
+TUBA
+
+posDef: APPR, APPRART, APPO, APZR are pre/post/circum-positions
+posDef: PROP: pronominal verw. Präposition
+nodeDef: PX: Prepositional Phrase
+
+xml:
+- want sentence tags, word tags
+- might contain node tags between sentence and word
+- form attr is surface realization
+- pos attr is pos tag
+- sentence comment contains %% HEADLINE?
+
+
+MISC
+
+- should probably handle HEADLINES differently
+- Continuous vs non-continuous ngrams
+- which n for the grams?
+- no prep stranding in german
+- what about long distance deps?
+- German gigaword corpus?
+- difference between functional and lexical preps?
+
+WHICH TAGS?
+% ./Sax ../corpora/tubadz/XML/tubadz-rel-100.xml APPR APPRART APPO APZR PROP
+Number of prepositions: 25451 (157 unique)
+Majority baseline ('in' occurs 3947 times): 0.15508231503673725
+% ./Sax ../corpora/tubadz/XML/tubadz-rel-100.xml APPR APPRART APPO APZR
+Number of prepositions: 23991 (107 unique)
+Majority baseline ('in' occurs 3947 times): 0.16452002834396232
+% ./Sax ../corpora/tubadz/XML/tubadz-rel-100.xml APPR
+Number of prepositions: 19681 (85 unique)
+Majority baseline ('in' occurs 3947 times): 0.20054875260403435
+
