@@ -8,14 +8,6 @@ posDef: APPR, APPRART, APPO, APZR are pre/post/circum-positions
 posDef: PROP: pronominal verw. Präposition
 nodeDef: PX: Prepositional Phrase
 
-xml:
-- want sentence tags, word tags
-- might contain node tags between sentence and word
-- form attr is surface realization
-- pos attr is pos tag
-- sentence comment contains %% HEADLINE?
-
-
 MISC
 
 - should probably handle HEADLINES differently
