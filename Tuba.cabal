@@ -8,9 +8,21 @@ Build-Depends: base
 Cabal-Version: >=0.12
 build-type: Simple
 
-executable baseline
+library
+    exposed-modules: Tuba.Format, Tuba.PolyReader
     hs-source-dirs: src
-    main-is: Sax.hs
+    ghc-options: -Wall -O2 -fglasgow-exts
+    ghc-prof-options: -prof -auto-all
+    build-depends: base >= 4, bytestring, hexpat, containers, polyparse
+
+executable test
+    main-is:          Test.hs
+    hs-source-dirs: src
+    ghc-options:      -Wall
+    ghc-prof-options: -prof -auto-all
+
+executable majb
+    main-is: Majbaseline.hs
+    hs-source-dirs: src
     ghc-options: -Wall -O2
     ghc-prof-options: -prof -auto-all
-    build-depends: base >= 4, bytestring, hexpat, containers

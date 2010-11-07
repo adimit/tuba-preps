@@ -3,6 +3,7 @@ import System.Environment (getArgs)
 import Control.Monad (liftM)
 import Data.Char (toLower)
 import Data.List (sortBy)
+import Data.Maybe (fromMaybe)
 import qualified Data.Map as M
 import qualified Data.ByteString.Lazy as C
 
@@ -18,10 +19,8 @@ increment = flip (M.insertWith (+)) 1
 
 extractTags :: Tags -> Freqmap -> SaxDefault -> Freqmap
 extractTags tags m (StartElement t attrs)
-    | t == "word" && lookup "pos" attrs `elem` (map Just tags) = increment (map toLower word) m
-    | otherwise                                                = m
-    where word = case lookup "form" attrs of Just w  -> w
-                                             Nothing -> error "EMPTY WORD!"
+    | t == "word" && lookup "pos" attrs `elem` map Just tags = increment (map toLower word) m
+    where word = fromMaybe (error "EMPTY WORD!") (lookup "form" attrs) 
 extractTags _ m _ = m
 
 main :: IO ()
@@ -29,11 +28,11 @@ main = do
     f    <- liftM head getArgs >>= C.readFile
     tags <- liftM tail getArgs
     let stuff   = foldl (extractTags tags) M.empty (parse defaultParseOptions f)
-        total   = (sortBy frequency) (M.toList stuff)
-        amount  = foldl (+) 0 (map snd total)
-        majBase = fromIntegral(snd . head $ total) / fromIntegral(amount)
+        total   = sortBy frequency (M.toList stuff)
+        amount  = sum (map snd total)
+        majBase = fromIntegral (snd . head $ total) / fromIntegral amount
     putStrLn $ "Number of prepositions: " ++
-        show amount ++" ("++ (show $ length total) ++" unique)"
+        show amount ++" ("++ show (length total) ++" unique)"
     putStrLn $ "Majority baseline ('" ++
-        (fst.head $ total) ++"' occurs "++ (show.snd.head $ total) ++" times): "++ (show majBase)
+        (fst.head $ total) ++"' occurs "++ (show.snd.head $ total) ++" times): "++ show majBase
 

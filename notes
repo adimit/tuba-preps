@@ -25,6 +25,8 @@ MISC
 - what about long distance deps?
 - German gigaword corpus?
 - difference between functional and lexical preps?
+- If performance bottlenecks are encountered, it might be of use to use 
+  ByteString or Text instead of String for t in SaxEvent t in Tuba.PolyReader.
 
 WHICH TAGS?
 % ./Sax ../corpora/tubadz/XML/tubadz-rel-100.xml APPR APPRART APPO APZR PROP
@@ -37,3 +39,9 @@ Majority baseline ('in' occurs 3947 times): 0.16452002834396232
 Number of prepositions: 19681 (85 unique)
 Majority baseline ('in' occurs 3947 times): 0.20054875260403435
 
+CODE:
+- Might be good to add Show instance to the SaxEvent type
+- MajBaseline has an evil performance bottleneck by turning GeneralizedXMLStrings
+  into Strings, using Char.toLower, and then making GXMLSs again. A typeclass next to
+  GXMLS (or an additional function in the GXMLS class (maybe there is already one?))
+  specifying toLower for every implementation should help
