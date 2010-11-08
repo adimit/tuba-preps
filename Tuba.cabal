@@ -26,3 +26,4 @@ executable majb
     hs-source-dirs: src
     ghc-options: -Wall -O2
     ghc-prof-options: -prof -auto-all
+    build-depends: cmdargs
